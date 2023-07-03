@@ -1,0 +1,28 @@
+React의 JSX문 안에서 중괄호를 이용해서 동적인 데이터를 출력하거나 js표현식을 사용할 수 있다.
+
+ex)
+
+const value = "새로운 값"
+
+return (
+    <div>
+        <h1>{value}</h1> // 화면에는 "새로운 값" 이 표출된다.
+        <h2>{1+2}</h2> // 화면에는 "3" 이 표출된다.
+    </div>
+)
+
+중괄호 안에는 Object 형식의 값은 텍스트로 출력할 수 없기때문에 오류가 발생한다.
+
+ex)
+
+const test_1 = new Date(2023, 6, 3);
+const test_2 = {"key":"value"}
+
+return (
+    <div>
+        <p>{test_1}</p> 
+        <p>{test_2}</p> 
+    </div>
+)
+
+test_1과 test_2의 값이 모두 Object 형식이기 때문에 오류가 발생한다.
