@@ -1,0 +1,14 @@
+state는 양방향 바인딩이 가능하다.
+이벤트로 값이 변하는것뿐만 아니라 변한값을 다시 보내주기도 한다.
+
+ex) 
+
+const [state,setState] = useState('')
+
+const stateHandler = (e) => {
+    setState(e.target.value)
+}
+
+<input type="text" value={state} onChange={stateHandler} />
+
+stateHandler 함수로 state의 값을 바꾸면 바뀐 state값을 input의 value로 보내준다.
