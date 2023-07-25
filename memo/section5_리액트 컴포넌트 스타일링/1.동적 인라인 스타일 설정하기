@@ -1,0 +1,35 @@
+일반적인 css 파일을 import해서 사용하면 해당 컴포넌트가 아닌 전체 HTML구조에 영향을 준다.
+
+ex )
+
+.bg-color {
+    background-color:blue;
+}
+
+import './Style.css'
+
+const Parent = () => {
+    return (
+        <div>
+            <div className="bg-color" />
+            <Children />
+        </div>
+    )
+}
+
+const Children = () => {
+    return <div className="bg-color"/>
+}
+
+위의 코드처럼 Parent컴포넌트에서 Style.css를 import 해서 사용했지만,
+Style.css가 import되지 않은 Children컴포넌트에서도 css가 적용되는것을 볼 수 있다.
+
+이를 방지하기위해선 스타일을 동적으로 설정해줘야한다.
+
+방법1. inline style 적용
+
+const flag = true;
+
+<div style={{backgroundColor: flag ? 'blue' : 'red'}}></div>
+
+이 방법은 기존의 css를 오버라이드한다.
