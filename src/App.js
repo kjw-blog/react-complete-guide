@@ -10,6 +10,9 @@ function App() {
   const warningHandler = (text) => {
     setWarning(text);
   };
+  const warningResetHandler = () => {
+    setWarning('');
+  };
 
   const addUserHandler = (user) => [
     setUserList((prev) => {
@@ -25,7 +28,7 @@ function App() {
         <AddUser addUser={addUserHandler} onWarning={warningHandler} />
         {userList.length > 0 && <UserList userList={userList} />}
       </div>
-      {warning && <Warning text={warning} />}
+      {warning && <Warning text={warning} close={warningResetHandler} />}
     </>
   );
 }

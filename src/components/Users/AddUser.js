@@ -24,6 +24,11 @@ const AddUser = (props) => {
       return;
     }
 
+    if (age < 0) {
+      props.onWarning('Please enter a valid age (> 0).');
+      return;
+    }
+
     props.addUser({
       id: Math.random().toString(),
       username,
