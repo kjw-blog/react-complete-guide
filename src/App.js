@@ -14,6 +14,10 @@ function App() {
     setWarning('');
   };
 
+  const deleteUserHandler = (id) => {
+    setUserList((prevUser) => prevUser.filter((user) => user.id !== id));
+  };
+
   const addUserHandler = (user) => [
     setUserList((prev) => {
       const updateList = [...prev];
@@ -26,7 +30,9 @@ function App() {
     <>
       <div>
         <AddUser addUser={addUserHandler} onWarning={warningHandler} />
-        {userList.length > 0 && <UserList userList={userList} />}
+        {userList.length > 0 && (
+          <UserList userList={userList} deleteUser={deleteUserHandler} />
+        )}
       </div>
       {warning && <Warning text={warning} close={warningResetHandler} />}
     </>

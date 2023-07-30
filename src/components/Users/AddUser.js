@@ -9,7 +9,7 @@ const AddUser = (props) => {
   const [age, setAge] = useState('');
 
   const usernameHandler = (e) => {
-    setUsername(e.target.value.trim());
+    setUsername(e.target.value);
   };
 
   const ageHandler = (e) => {

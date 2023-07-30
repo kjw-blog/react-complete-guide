@@ -7,7 +7,7 @@ const UserList = (props) => {
     <Card className={Style['list-wrap']}>
       <ul className={Style.list}>
         {props.userList.map((user) => (
-          <UserInfo key={user.id} user={user} />
+          <UserInfo deleteUser={props.deleteUser} key={user.id} user={user} />
         ))}
       </ul>
     </Card>
