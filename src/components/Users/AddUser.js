@@ -19,6 +19,11 @@ const AddUser = (props) => {
   const addUserHandler = (e) => {
     e.preventDefault();
 
+    if (!username.trim() || !age) {
+      props.onWarning('Please enter a valid name and age (non-empty values).');
+      return;
+    }
+
     props.addUser({
       id: Math.random().toString(),
       username,
