@@ -1,0 +1,26 @@
+.add-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-form input {
+  outline: none;
+  border: 1px solid gray;
+  height: 30px;
+}
+
+.add-form label {
+  font-weight: 900;
+}
+
+.add-form button {
+  background-color: purple;
+  border: none;
+  outline: none;
+  height: 30px;
+  color: #fff;
+  font-weight: 700;
+  width: 120px;
+  cursor: pointer;
+}
