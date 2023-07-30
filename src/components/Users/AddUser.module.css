@@ -13,14 +13,3 @@
 .add-form label {
   font-weight: 900;
 }
-
-.add-form button {
-  background-color: purple;
-  border: none;
-  outline: none;
-  height: 30px;
-  color: #fff;
-  font-weight: 700;
-  width: 120px;
-  cursor: pointer;
-}
