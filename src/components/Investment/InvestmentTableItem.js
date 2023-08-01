@@ -1,11 +1,15 @@
-const InvestmentTableItem = () => {
+const InvestmentTableItem = ({ yearly }) => {
+  const valueHandler = (value) => {
+    return (+value.toFixed(2)).toLocaleString();
+  };
+
   return (
     <tr>
-      <td>YEAR NUMBER</td>
-      <td>TOTAL SAVINGS END OF YEAR</td>
-      <td>INTEREST GAINED IN YEAR</td>
-      <td>TOTAL INTEREST GAINED</td>
-      <td>TOTAL INVESTED CAPITAL</td>
+      <td>{yearly.year}</td>
+      <td>${valueHandler(yearly.savingsEndOfYear)}</td>
+      <td>${valueHandler(yearly.yearlyInterest)}</td>
+      <td>${valueHandler(yearly.totalInterest)}</td>
+      <td>${valueHandler(yearly.investedCapital)}</td>
     </tr>
   );
 };
