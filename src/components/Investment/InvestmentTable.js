@@ -1,3 +1,4 @@
+import Style from './InvestmentTable.module.css';
 import InvestmentTableHead from './InvestmentTableHead';
 import InvestmentTableItem from './InvestmentTableItem';
 
@@ -7,7 +8,7 @@ import InvestmentTableItem from './InvestmentTableItem';
  */
 const InvestmentTable = () => {
   return (
-    <table className="result">
+    <table className={Style.result}>
       <InvestmentTableHead />
       <tbody>
         <InvestmentTableItem />

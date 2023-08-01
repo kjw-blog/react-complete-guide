@@ -1,8 +1,11 @@
+import Style from './InvestmentForm.module.css';
+
 import InputGroupCard from '../UI/InputGroupCard';
+import Button from '../UI/Button';
 
 const InvestmentForm = () => {
   return (
-    <form className="form">
+    <form className={Style.form}>
       <InputGroupCard>
         <p>
           <label htmlFor="current-savings">Current Savings ($)</label>
@@ -25,13 +28,9 @@ const InvestmentForm = () => {
           <input type="number" id="duration" />
         </p>
       </InputGroupCard>
-      <p className="actions">
-        <button type="reset" className="buttonAlt">
-          Reset
-        </button>
-        <button type="submit" className="button">
-          Calculate
-        </button>
+      <p className={Style.actions}>
+        <Button text="Reset" type="reset" className={Style.buttonAlt} />
+        <Button text="Calculate" type="submit" className={Style.button} />
       </p>
     </form>
   );
