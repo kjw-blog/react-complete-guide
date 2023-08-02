@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import classes from './UserInput.module.css';
+
 // 컴포넌트가 실행될 때 마다 재선언이 될 필요가 없는 값은 컴포넌트 함수 밖에 선언해준다.
 const initialUserInput = {
   'current-savings': 10000,
@@ -25,14 +27,14 @@ const UserInput = (props) => {
       return {
         ...prevInput,
         // 대괄호안에 식별자를 넣어주면 key를 동적으로 설정할 수 있다.
-        [input]: value,
+        [input]: +value,
       };
     });
   };
 
   return (
-    <form onSubmit={submitHandler} className="form">
-      <div className="input-group">
+    <form onSubmit={submitHandler} className={classes.form}>
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="current-savings">Current Savings ($)</label>
           <input
@@ -56,7 +58,7 @@ const UserInput = (props) => {
           />
         </p>
       </div>
-      <div className="input-group">
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="expected-return">
             Expected Interest (%, per year)
@@ -84,11 +86,15 @@ const UserInput = (props) => {
           />
         </p>
       </div>
-      <p className="actions">
-        <button onClick={resetHandler} type="reset" className="buttonAlt">
+      <p className={classes.actions}>
+        <button
+          onClick={resetHandler}
+          type="reset"
+          className={classes.buttonAlt}
+        >
           Reset
         </button>
-        <button type="submit" className="button">
+        <button type="submit" className={classes.button}>
           Calculate
         </button>
       </p>
