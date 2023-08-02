@@ -7,14 +7,14 @@ const initialUserInput = {
   duration: 10,
 };
 
-const UserInput = () => {
+const UserInput = (props) => {
   // 하나의 객체 state가 아닌 개별의 state를 관리하는 방법으로 해도 무관하다
   const [userInput, setUserInput] = useState(initialUserInput);
 
   const submitHandler = (event) => {
     event.preventDefault();
 
-    console.log('SUBMIT');
+    props.onCalculate(userInput);
   };
   const resetHandler = () => {
     setUserInput(initialUserInput);
