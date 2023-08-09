@@ -47,9 +47,6 @@ const Login = (props) => {
 
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // email과 password state를 직접 useEffect 의존성으로 주입하게되면,
-  // 각 state의 value가 변경될 때 마다 useEffect가 실행되기 때문에
-  // 각 state의 유효성만 검사하는 isValid만 구조분해할당으로 가져와서 useEffect 의존성에 넣어준다.
   const { isValid: emailIsValid } = emailState;
   const { isValid: passwordIsValid } = passwordState;
 
