@@ -47,28 +47,28 @@ const Login = (props) => {
 
   const [formIsValid, setFormIsValid] = useState(false);
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     );
-  //   }, 500);
+  // email과 password state를 직접 useEffect 의존성으로 주입하게되면,
+  // 각 state의 value가 변경될 때 마다 useEffect가 실행되기 때문에
+  // 각 state의 유효성만 검사하는 isValid만 구조분해할당으로 가져와서 useEffect 의존성에 넣어준다.
+  const { isValid: emailIsValid } = emailState;
+  const { isValid: passwordIsValid } = passwordState;
 
-  //   return () => {
-  //     clearTimeout(identifier);
-  //   };
-  // }, [enteredEmail, enteredPassword]);
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      setFormIsValid(emailIsValid && passwordIsValid);
+    }, 500);
+
+    return () => {
+      clearTimeout(identifier);
+    };
+  }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
-
-    setFormIsValid(event.target.value.includes('@') && passwordState.isValid);
   };
 
   const passwordChangeHandler = (event) => {
     dispatchPassword({ type: 'PASSWORD_INPUT', val: event.target.value });
-
-    setFormIsValid(emailState.isValid && event.target.value.trim().length > 6);
   };
 
   const validateEmailHandler = () => {
