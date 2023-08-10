@@ -19,7 +19,7 @@ const emailReducer = (state, action) => {
 };
 
 const passwordReducer = (state, action) => {
-  if (action.type === 'USER_INPUT') {
+  if (action.type === 'PASSWORD_INPUT') {
     return { value: action.val, isValid: action.val.trim().length > 6 };
   }
 
@@ -63,6 +63,22 @@ const Login = () => {
     };
   }, [emailIsValid, passwordIsValid]);
 
+  const emailChangeHandler = (event) => {
+    dispatchEmail({ type: 'USER_INPUT', val: event.target.value });
+  };
+
+  const passwordChangeHandler = (event) => {
+    dispatchPassword({ type: 'PASSWORD_INPUT', val: event.target.value });
+  };
+
+  const validateEmailHandler = () => {
+    dispatchEmail({ type: 'INPUT_BLUR' });
+  };
+
+  const validatePasswordHandler = () => {
+    dispatchPassword({ type: 'INPUT_BLUR' });
+  };
+
   const submitHandler = (event) => {
     event.preventDefault();
     ctx.onLogin(emailState.value, passwordState.value);
@@ -72,16 +88,22 @@ const Login = () => {
     <Card className={classes.login}>
       <form onSubmit={submitHandler}>
         <Input
+          isValid={emailIsValid}
+          id="email"
           type="email"
-          label="E-Mail"
-          state={emailState}
-          dispatch={dispatchEmail}
+          label="E-mail"
+          value={emailState.value}
+          onChange={emailChangeHandler}
+          onBlur={validateEmailHandler}
         />
         <Input
+          isValid={passwordIsValid}
+          id="password"
           type="password"
           label="Password"
-          state={passwordState}
-          dispatch={dispatchPassword}
+          value={passwordState.value}
+          onChange={passwordChangeHandler}
+          onBlur={validatePasswordHandler}
         />
         <div className={classes.actions}>
           <Button type="submit" className={classes.btn} disabled={!formIsValid}>
