@@ -2,14 +2,16 @@ import React from 'react';
 import Style from './DemoList.module.css';
 
 const DemoList = (props) => {
-  const items = props.items.sort((a, b) => a - b);
-
-  const demoList = items.map((item) => <li key={item}>{item}</li>);
+  const sortList = props.items.sort((a, b) => a - b);
 
   return (
-    <div className={Style['demo-wrap']}>
-      <h3>{props.title}</h3>
-      <ul>{demoList}</ul>
+    <div className={Style.list}>
+      <h2>{props.title}</h2>
+      <ul>
+        {sortList.map((item) => (
+          <li key={item}>{item}</li>
+        ))}
+      </ul>
     </div>
   );
 };
