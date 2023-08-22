@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import Style from './DemoList.module.css';
 
 const DemoList = (props) => {
-  const sortList = props.items.sort((a, b) => a - b);
+  const { items } = props;
+
+  const sortList = useMemo(() => {
+    console.log('memo', items);
+    return items.sort((a, b) => a - b);
+  }, [items]);
 
   return (
     <div className={Style.list}>

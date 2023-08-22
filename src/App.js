@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import './App.css';
 import Button from './components/UI/Button/Button';
@@ -11,9 +11,13 @@ function App() {
     setListTitle('New Title');
   }, []);
 
+  const listItems = useMemo(() => {
+    return [5, 3, 1, 10, 9];
+  }, []);
+
   return (
     <div className="app">
-      <DemoList title={listTitle} items={[5, 3, 1, 10, 9]} />
+      <DemoList title={listTitle} items={listItems} />
       <Button onClick={changeTitleHandler}>Change List Title</Button>
     </div>
   );
