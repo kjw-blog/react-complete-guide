@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import MoviesList from './components/MoviesList';
 import './App.css';
@@ -8,29 +8,10 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchMoviesHandler = async () => {
+  const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
-    // fetch('https://swapi.dev/api/filmssss')
-    //   .then((res) => {
-    //     if (!res.ok) {
-    //       throw new Error('오류 발생');
-    //     }
-    //     return res.json();
-    //   })
-    //   .then((data) => {
-    //     const transformedMovies = data.results.map((movieData) => {
-    //       return {
-    //         id: movieData.episode_id,
-    //         title: movieData.title,
-    //         releaseDate: movieData.release_date,
-    //         openingText: movieData.opening_crawl,
-    //       };
-    //     });
-    //     setMovies(transformedMovies);
-    //   })
-    //   .catch((error) => console.log(error.message));
     try {
       const response = await fetch('https://swapi.dev/api/films');
 
@@ -54,7 +35,11 @@ function App() {
     }
 
     setIsLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
   let content = <p>Found no movies</p>;
 
