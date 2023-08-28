@@ -22,6 +22,8 @@ const NewTask = (props) => {
         },
         body: { text: taskText },
       },
+      // 첫번째 인자는 createTask가 전달받을 this. 해당 사항이 없으므로 null을 넣어줬다.
+      // 두번째 인자 이후로는 createTask함수에 인자로 순서대로 들어간다.
       createTask.bind(null, taskText)
     );
   };
