@@ -1,8 +1,6 @@
 import { useState } from 'react';
-import { useRef } from 'react';
 
 const SimpleInput = (props) => {
-  const nameInputRef = useRef();
   const [enteredName, setEnteredName] = useState('');
 
   const nameInputChangeHandler = (e) => {
@@ -11,12 +9,12 @@ const SimpleInput = (props) => {
 
   const formSubmissionHandler = (e) => {
     e.preventDefault();
-    // 방법1. useState를 이용한 input value 설정
-    console.log(enteredName);
 
-    // 방법2. useRef를 이용한 input value 설정
-    const enteredValue = nameInputRef.current.value;
-    console.log(enteredValue);
+    if (enteredName.trim() === '') {
+      return;
+    }
+
+    setEnteredName(enteredName);
   };
 
   return (
@@ -24,7 +22,6 @@ const SimpleInput = (props) => {
       <div className="form-control">
         <label htmlFor="name">Your Name</label>
         <input
-          ref={nameInputRef}
           value={enteredName}
           onChange={nameInputChangeHandler}
           type="text"
