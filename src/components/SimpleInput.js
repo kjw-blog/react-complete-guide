@@ -2,8 +2,15 @@ import { useState } from 'react';
 
 const SimpleInput = (props) => {
   const [enteredName, setEnteredName] = useState('');
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
+
+  /**
+   * enteredNameIsValid의 값은 enteredName에 의해 정해지기 때문에 불필요한 상태값을 없애고
+   * enteredName이 변경되면 해당 컴포넌트 재실행 후 enteredNameIsValid의 값이 다시 변경되기 때문에
+   * 상수로 지정해주었다.
+   */
+  const enteredNameIsValid = enteredName.trim() !== '';
+  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const nameInputChangeHandler = (e) => {
     setEnteredName(e.target.value);
@@ -11,26 +18,19 @@ const SimpleInput = (props) => {
 
   const nameInputBlurHandler = (e) => {
     setEnteredNameTouched(true);
-
-    if (enteredName.trim() === '') {
-      setEnteredNameIsValid(false);
-    }
   };
 
   const formSubmissionHandler = (e) => {
     e.preventDefault();
     setEnteredNameTouched(true);
 
-    if (enteredName.trim() === '') {
-      setEnteredNameIsValid(false);
+    if (!enteredNameIsValid) {
       return;
     }
 
-    setEnteredNameIsValid(true);
     setEnteredName('');
+    setEnteredNameTouched(false);
   };
-
-  const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
   const nameInputClasses = nameInputIsInvalid
     ? 'form-control invalid'
