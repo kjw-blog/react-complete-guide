@@ -1,33 +1,30 @@
 import { useState } from 'react';
+import useInput from '../hooks/useInput';
 
 const BasicForm = (props) => {
-  const [firstName, setFirstName] = useState('');
-  const [firstNameTouched, setFirstNameTouched] = useState(false);
-
-  const firstNameIsValid = firstName.trim() !== '';
-  const firstNameHasError = !firstNameIsValid && firstNameTouched;
+  const {
+    value: firstName,
+    isValid: firstNameIsValid,
+    hasError: firstNameHasError,
+    reset: resetFirstName,
+    inputChangeHandler: firstNameChangeHandler,
+    inputBlurHandler: firstNameBlurHandler,
+  } = useInput({
+    validate: (value) => value.trim() !== '',
+  });
 
   let formValid = false;
   if (firstNameIsValid) formValid = true;
-
-  const firstNameChangeHandler = (e) => {
-    setFirstName(e.target.value);
-  };
-
-  const firstNameBlurHandler = (e) => {
-    setFirstNameTouched(true);
-  };
 
   const submitHandler = (e) => {
     e.preventDefault();
 
     if (firstNameHasError) return;
 
-    setFirstName('');
-    setFirstNameTouched(false);
+    resetFirstName();
   };
 
-  const firstNameClasses = `form-control ${firstNameHasError && 'invalid'}`;
+  const firstNameClasses = `form-control ${firstNameHasError ? 'invalid' : ''}`;
 
   return (
     <form onSubmit={submitHandler}>
