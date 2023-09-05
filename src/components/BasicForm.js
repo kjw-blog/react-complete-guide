@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import useInput from '../hooks/useInput';
 
+const isNotEmpty = (value) => value.trim() !== '';
+const isEmail = (value) => value.includes('@');
+
 const BasicForm = (props) => {
   const {
     value: firstName,
@@ -9,9 +12,7 @@ const BasicForm = (props) => {
     reset: resetFirstName,
     inputChangeHandler: firstNameChangeHandler,
     inputBlurHandler: firstNameBlurHandler,
-  } = useInput({
-    validate: (value) => value.trim() !== '',
-  });
+  } = useInput(isNotEmpty);
   const {
     value: lastName,
     isValid: lastNameIsValid,
@@ -19,9 +20,7 @@ const BasicForm = (props) => {
     reset: resetLastName,
     inputChangeHandler: lastNameChangeHandler,
     inputBlurHandler: lastNameBlurHandler,
-  } = useInput({
-    validate: (value) => value.trim() !== '',
-  });
+  } = useInput(isNotEmpty);
   const {
     value: email,
     isValid: emailIsValid,
@@ -29,9 +28,7 @@ const BasicForm = (props) => {
     reset: resetEmail,
     inputChangeHandler: emailChangeHandler,
     inputBlurHandler: emailBlurHandler,
-  } = useInput({
-    validate: (value) => value.includes('@'),
-  });
+  } = useInput(isEmail);
 
   let formValid = false;
   if (firstNameIsValid && lastNameIsValid && emailIsValid) formValid = true;
