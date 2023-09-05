@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useInput from '../hooks/useInput';
 
 const isNotEmpty = (value) => value.trim() !== '';
