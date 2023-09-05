@@ -12,19 +12,45 @@ const BasicForm = (props) => {
   } = useInput({
     validate: (value) => value.trim() !== '',
   });
+  const {
+    value: lastName,
+    isValid: lastNameIsValid,
+    hasError: lastNameHasError,
+    reset: resetLastName,
+    inputChangeHandler: lastNameChangeHandler,
+    inputBlurHandler: lastNameBlurHandler,
+  } = useInput({
+    validate: (value) => value.trim() !== '',
+  });
+  const {
+    value: email,
+    isValid: emailIsValid,
+    hasError: emailHasError,
+    reset: resetEmail,
+    inputChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+  } = useInput({
+    validate: (value) => value.includes('@'),
+  });
 
   let formValid = false;
-  if (firstNameIsValid) formValid = true;
+  if (firstNameIsValid && lastNameIsValid && emailIsValid) formValid = true;
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    if (firstNameHasError) return;
+    if (!formValid) return;
+
+    alert('짝짝짝');
 
     resetFirstName();
+    resetLastName();
+    resetEmail();
   };
 
   const firstNameClasses = `form-control ${firstNameHasError ? 'invalid' : ''}`;
+  const lastNameClasses = `form-control ${lastNameHasError ? 'invalid' : ''}`;
+  const emailClasses = `form-control ${emailHasError ? 'invalid' : ''}`;
 
   return (
     <form onSubmit={submitHandler}>
@@ -42,14 +68,32 @@ const BasicForm = (props) => {
             <p className="error-text">이름을 입력해 주세요.</p>
           )}
         </div>
-        <div className="form-control">
+        <div className={lastNameClasses}>
           <label htmlFor="name">Last Name</label>
-          <input type="text" id="name" />
+          <input
+            type="text"
+            id="name"
+            value={lastName}
+            onChange={lastNameChangeHandler}
+            onBlur={lastNameBlurHandler}
+          />
+          {lastNameHasError && (
+            <p className="error-text">성을 입력해 주세요.</p>
+          )}
         </div>
       </div>
-      <div className="form-control">
+      <div className={emailClasses}>
         <label htmlFor="name">E-Mail Address</label>
-        <input type="text" id="name" />
+        <input
+          type="text"
+          id="name"
+          value={email}
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+        />
+        {emailHasError && (
+          <p className="error-text">올바른 이메일을 입력해 주세요.</p>
+        )}
       </div>
       <div className="form-actions">
         <button disabled={!formValid}>Submit</button>
