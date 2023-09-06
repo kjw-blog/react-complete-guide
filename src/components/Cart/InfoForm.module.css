@@ -1,0 +1,27 @@
+.form {
+  border-top: 2px solid #8a2b06;
+  padding: 2em 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.hasError input {
+  background-color: #ffb9b9;
+  border: 1px solid red;
+}
+
+.hasError input:focus,
+.hasError input:active {
+  background-color: #faecc5;
+  border: 1px solid #ffdf24;
+}
+
+.hasError p {
+  color: red;
+}
+
+.form input {
+  flex: 1;
+  outline: none;
+}
