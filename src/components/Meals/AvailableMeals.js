@@ -5,8 +5,10 @@ import { useCallback, useEffect, useState } from 'react';
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getMealsData = useCallback(async () => {
+    setIsLoading(true);
     const response = await fetch(
       'https://react-http-f4305-default-rtdb.firebaseio.com/meals.json'
     );
@@ -20,27 +22,33 @@ const AvailableMeals = () => {
     }
 
     setMeals(mealItems);
-  });
+    setIsLoading(false);
+  }, []);
 
   useEffect(() => {
     getMealsData();
   }, [getMealsData]);
 
-  const mealsList = meals.map((meal) => (
-    <MealItem
-      key={meal.id}
-      id={meal.id}
-      name={meal.name}
-      description={meal.description}
-      price={meal.price}
-    />
-  ));
+  let mealsList = (
+    <ul>
+      {meals.map((meal) => (
+        <MealItem
+          key={meal.id}
+          id={meal.id}
+          name={meal.name}
+          description={meal.description}
+          price={meal.price}
+        />
+      ))}
+    </ul>
+  );
+  if (isLoading) {
+    mealsList = <p className={classes.isLoading}>로딩중 입니다.</p>;
+  }
 
   return (
     <section className={classes.meals}>
-      <Card>
-        <ul>{mealsList}</ul>
-      </Card>
+      <Card>{mealsList}</Card>
     </section>
   );
 };
