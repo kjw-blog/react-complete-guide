@@ -1,27 +1,16 @@
 import Card from '../UI/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './AvailableMeals.module.css';
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import useFetch from '../hooks/useFetch';
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const getMealsData = useCallback(async () => {
-    setError(null);
-    setIsLoading(true);
-    try {
-      const response = await fetch(
-        'https://react-http-f4305-default-rtdb.firebaseio.com/meals.json'
-      );
+  const { error, isLoading, onFetch } = useFetch();
 
-      if (!response.ok) {
-        throw new Error('오류 발생');
-      }
-
-      const data = await response.json();
-
+  useEffect(() => {
+    const mealsDataHandler = (data) => {
       let mealItems = [];
 
       for (let key in data) {
@@ -29,16 +18,15 @@ const AvailableMeals = () => {
       }
 
       setMeals(mealItems);
-    } catch (e) {
-      setError(e.message);
-      console.log(e.message);
-    }
-    setIsLoading(false);
-  }, []);
+    };
 
-  useEffect(() => {
-    getMealsData();
-  }, [getMealsData]);
+    onFetch(
+      {
+        url: 'meals',
+      },
+      mealsDataHandler
+    );
+  }, [onFetch]);
 
   let mealsList = <p className={classes['text-center']}>데이터가 없습니다.</p>;
 
