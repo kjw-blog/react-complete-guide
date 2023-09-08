@@ -44,3 +44,10 @@
   background-color: #8a2b06;
   color: white;
 }
+
+.actions .button:disabled {
+  color: black;
+  background-color: #ddd;
+  border: 1px solid gray;
+  cursor: not-allowed;
+}
