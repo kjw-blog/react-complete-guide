@@ -39,6 +39,7 @@ const Cart = (props) => {
   const orderHandler = () => {
     const orderDataHandler = (data) => {
       alert('주문 완료 !');
+      cartCtx.resetItem();
       props.onClose();
     };
 
