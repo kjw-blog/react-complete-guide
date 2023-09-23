@@ -43,7 +43,7 @@ export default App;
 // 3. 모든 페이지 구성요소 위에 <MainNavigation> 구성요소를 추가하는 루트 레이아웃 추가 O
 // 4. 메인 내비게이션에 올바르게 작동 링크를 추가합니다. O
 // 5. 활성 시 내비게이션의 링크가 활성화되면 "활성" 클래스를 수신하는지 확인하십시오. O
-// 6. 더미 이벤트 목록을 Events 페이지로 출력합니다
+// 6. 더미 이벤트 목록을 Events 페이지로 출력합니다 O
 //    모든 목록 항목에는 해당 EventDetailPage에 대한 링크가 포함되어야 합니다
-// 7. EventDetail 페이지에서 선택한 이벤트의 ID를 출력합니다
+// 7. EventDetail 페이지에서 선택한 이벤트의 ID를 출력합니다 O
 // BONUS: all /events... 페이지 구성요소 위에 <EventNavigation> 구성요소를 추가하는 다른 (nested) 레이아웃 경로 추가
