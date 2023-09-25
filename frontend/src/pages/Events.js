@@ -4,6 +4,10 @@ import EventsList from '../components/EventsList';
 function EventsPage() {
   const data = useLoaderData();
 
+  if (data.isError) {
+    return <p>{data.message}</p>;
+  }
+
   const events = data.events;
 
   return <EventsList events={events} />;
@@ -15,7 +19,7 @@ export async function loader() {
   const response = await fetch('http://localhost:8080/events');
 
   if (!response.ok) {
-    // 오류 상황에 대한 처리
+    throw new Error('오류 발생');
   } else {
     return response;
   }
