@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import EventsNavigation from '../components/EventsNavigation';
 
-const EventRoot = () => {
+const EventsRoot = () => {
   return (
     <>
       <EventsNavigation />
@@ -10,4 +10,4 @@ const EventRoot = () => {
   );
 };
 
-export default EventRoot;
+export default EventsRoot;
