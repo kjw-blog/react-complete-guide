@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import { useFetcher } from 'react-router-dom';
 
 import classes from './NewsletterSignup.module.css';
-import { useEffect } from 'react';
 
 function NewsletterSignup() {
   const fetcher = useFetcher();
@@ -21,8 +21,7 @@ function NewsletterSignup() {
     >
       <input
         type="email"
-        name="email"
-        placeholder="Sign up for newslet ter..."
+        placeholder="Sign up for newsletter..."
         aria-label="Sign up for newsletter"
       />
       <button>Sign up</button>

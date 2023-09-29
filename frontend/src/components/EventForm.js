@@ -1,17 +1,16 @@
 import {
   Form,
-  json,
-  redirect,
-  useActionData,
   useNavigate,
   useNavigation,
+  useActionData,
+  json,
+  redirect
 } from 'react-router-dom';
 
 import classes from './EventForm.module.css';
 
 function EventForm({ method, event }) {
   const data = useActionData();
-
   const navigate = useNavigate();
   const navigation = useNavigation();
 
@@ -25,8 +24,8 @@ function EventForm({ method, event }) {
     <Form method={method} className={classes.form}>
       {data && data.errors && (
         <ul>
-          {Object.values(data.errors).map((error) => (
-            <li key={error}>{error}</li>
+          {Object.values(data.errors).map((err) => (
+            <li key={err}>{err}</li>
           ))}
         </ul>
       )}
@@ -103,7 +102,7 @@ export async function action({ request, params }) {
   }
 
   const response = await fetch(url, {
-    method,
+    method: method,
     headers: {
       'Content-Type': 'application/json',
     },
@@ -116,7 +115,8 @@ export async function action({ request, params }) {
 
   if (!response.ok) {
     throw json({ message: 'Could not save event.' }, { status: 500 });
-  } else {
-    return redirect('/events');
   }
+
+  return redirect('/events');
 }
+
