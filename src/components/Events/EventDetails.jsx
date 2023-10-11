@@ -1,15 +1,14 @@
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 
 import Header from '../Header.jsx';
-import { useQuery } from '@tanstack/react-query';
-import { fetchEvent } from '../../util/http.js';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { deleteEvent, fetchEvent, queryClient } from '../../util/http.js';
 import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
   const { id } = useParams();
-
-  console.log(id);
+  const navigate = useNavigate();
 
   const { data, isPending, isError, error } = useQuery({
     queryKey: ['event', { eventId: id }],
@@ -17,6 +16,22 @@ export default function EventDetails() {
       return fetchEvent({ id, signal });
     },
   });
+
+  const { mutate, isPending: deleteIsPending } = useMutation({
+    mutationFn: () => {
+      return deleteEvent({ id });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries(['events']);
+      navigate('..');
+    },
+  });
+
+  const deleteHandler = () => {
+    if (confirm('삭제하시겠습니까?')) {
+      mutate();
+    }
+  };
 
   let content = '아무것도 없음.';
 
@@ -43,7 +58,9 @@ export default function EventDetails() {
         <header>
           <h1>{title}</h1>
           <nav>
-            <button>Delete</button>
+            <button onClick={deleteHandler} disabled={deleteIsPending}>
+              {deleteIsPending ? '삭제중...' : 'Delete'}
+            </button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
