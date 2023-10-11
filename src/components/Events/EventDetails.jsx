@@ -7,76 +7,84 @@ import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
-  const { id } = useParams();
+  const params = useParams();
   const navigate = useNavigate();
 
   const { data, isPending, isError, error } = useQuery({
-    queryKey: ['event', { eventId: id }],
+    queryKey: ['event', { id: params.id }],
     queryFn: ({ signal }) => {
-      return fetchEvent({ id, signal });
+      return fetchEvent({ id: params.id, signal });
     },
   });
 
   const { mutate, isPending: deleteIsPending } = useMutation({
-    mutationFn: () => {
-      return deleteEvent({ id });
-    },
+    mutationFn: deleteEvent,
     onSuccess: () => {
       queryClient.invalidateQueries(['events']);
-      navigate('..');
+      navigate('/events');
     },
   });
 
-  const deleteHandler = () => {
-    if (confirm('삭제하시겠습니까?')) {
-      mutate();
-    }
+  const handleDelete = () => {
+    // mutate 함수에 id를 넘겨줘야했는데 mutationFn에 직접 넘기는 실수함
+    mutate({ id: params.id });
   };
 
-  let content = '아무것도 없음.';
+  let content;
 
   if (isPending) {
-    content = <LoadingIndicator />;
+    content = (
+      <div id="event-details-content" className="center">
+        <p>Fetching event data...</p>
+      </div>
+    );
   }
 
   if (isError) {
     content = (
-      <ErrorBlock
-        title="오류 남."
-        message={error.info?.message || '오류 내용임'}
-      />
+      <div id="event-details-content" className="center">
+        <ErrorBlock
+          title="Failed to load event"
+          message={
+            error.info?.message ||
+            'Failed to fetch event data, please try again later.'
+          }
+        />
+      </div>
     );
   }
 
   if (data) {
-    const { title, description, date, time, image, location } = data;
-
-    const src = 'http://localhost:3000/' + image;
+    const formattedDate = new Date(data.date).toLocaleDateString('ko-Kr', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric',
+    });
 
     content = (
-      <article id="event-details">
+      <>
         <header>
-          <h1>{title}</h1>
+          <h1>{data.title}</h1>
           <nav>
-            <button onClick={deleteHandler} disabled={deleteIsPending}>
+            <button onClick={handleDelete} disabled={deleteIsPending}>
               {deleteIsPending ? '삭제중...' : 'Delete'}
             </button>
             <Link to="edit">Edit</Link>
           </nav>
         </header>
         <div id="event-details-content">
-          <img src={src} alt="" />
+          <img src={`http://localhost:3000/${data.image}`} alt={data.title} />
           <div id="event-details-info">
             <div>
-              <p id="event-details-location">{location}</p>
+              <p id="event-details-location">{data.location}</p>
               <time dateTime={`Todo-DateT$Todo-Time`}>
-                {date} @ {time}
+                {formattedDate} @ {data.time}
               </time>
             </div>
-            <p id="event-details-description">{description}</p>
+            <p id="event-details-description">{data.description}</p>
           </div>
         </div>
-      </article>
+      </>
     );
   }
 
@@ -88,7 +96,7 @@ export default function EventDetails() {
           View all Events
         </Link>
       </Header>
-      {content}
+      <article id="event-details">{content}</article>
     </>
   );
 }
