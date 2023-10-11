@@ -3,7 +3,6 @@ import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import Header from '../Header.jsx';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { deleteEvent, fetchEvent, queryClient } from '../../util/http.js';
-import LoadingIndicator from '../UI/LoadingIndicator.jsx';
 import ErrorBlock from '../UI/ErrorBlock.jsx';
 
 export default function EventDetails() {
@@ -20,7 +19,11 @@ export default function EventDetails() {
   const { mutate, isPending: deleteIsPending } = useMutation({
     mutationFn: deleteEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries(['events']);
+      // queryKey를 객체 말고 그냥 배열만 넘기는 실수함
+      queryClient.invalidateQueries({
+        queryKey: ['events'],
+        refetchType: 'none',
+      });
       navigate('/events');
     },
   });
