@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { combineReducers, createStore } from 'redux';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 
 import './index.css';
 import App from './App';
@@ -15,4 +15,8 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+root.render(
+  <Router>
+    <App />
+  </Router>
+);
