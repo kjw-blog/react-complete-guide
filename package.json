@@ -1,16 +1,16 @@
 {
-  "name": "react-hooks-update",
+  "name": "react-complete-guide",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^11.2.2",
+    "@testing-library/user-event": "^12.5.0",
     "eslint-plugin-react-refresh": "^0.4.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^7.1.0",
-    "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4",
     "react-scripts": "^5.0.1",
-    "redux": "^4.0.1"
+    "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -19,7 +19,10 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "browserslist": {
     "production": [
