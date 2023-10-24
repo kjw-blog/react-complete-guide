@@ -6,8 +6,8 @@ const Async = () => {
   useEffect(() => {
     fetch('https://omgvamp-hearthstone-v1.p.rapidapi.com/info', {
       headers: {
-        'X-RapidAPI-Key': '1bd1c03dd7mshfade42ba08a6f7ap1504cbjsn6c0e6b8e6670',
-        'X-RapidAPI-Host': 'omgvamp-hearthstone-v1.p.rapidapi.com',
+        'X-RapidAPI-Key': process.env.REACT_APP_HEARTH_STONE_KEY,
+        'X-RapidAPI-Host': process.env.REACT_APP_HEARTH_STONE_HOST,
       },
     })
       .then((response) => response.json())
