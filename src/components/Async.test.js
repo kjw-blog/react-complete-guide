@@ -3,6 +3,11 @@ import Async from './Async';
 
 describe('Async component', () => {
   test('renders hearthstone if request succeed', async () => {
+    window.fetch = jest.fn();
+    window.fetch.mockResolvedValueOnce({
+      json: async () => ['Priest'],
+    });
+
     render(<Async />);
 
     const listItemElements = await screen.findAllByRole(
