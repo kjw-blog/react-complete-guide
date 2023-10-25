@@ -48,6 +48,7 @@ people = [
 
 // 타입 추론
 
-let course = 'React - The Complete Guide';
+let course: string | number = 'React - The Complete Guide';
 
+course = '리액트 강의';
 course = 123123;
