@@ -45,3 +45,9 @@ people = [
     age: 51,
   },
 ];
+
+// 타입 추론
+
+let course = 'React - The Complete Guide';
+
+course = 123123;
