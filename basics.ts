@@ -51,3 +51,13 @@ let course: string | number = 'React - The Complete Guide';
 
 course = '리액트 강의';
 course = 123123;
+
+// 함수와 타입
+
+function add(a: number, b: number): number {
+  return a + b;
+}
+
+function print(value: any): void {
+  console.log(value);
+}
