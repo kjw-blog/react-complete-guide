@@ -6,14 +6,18 @@ import Style from './Todos.module.css';
 
 type Props = {
   items: Todo[];
-  onDeleteTodo: (id: string) => void;
+  onRemoveTodo: (id: string) => void;
 };
 
 const Todos: React.FC<Props> = (props) => {
   return (
     <ul className={Style.todos}>
       {props.items.map((item) => (
-        <TodoItem onDeleteTodo={props.onDeleteTodo} key={item.id} item={item} />
+        <TodoItem
+          key={item.id}
+          text={item.text}
+          onRemoveTodo={props.onRemoveTodo.bind(null, item.id)}
+        />
       ))}
     </ul>
   );
